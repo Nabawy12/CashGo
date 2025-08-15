@@ -6,6 +6,10 @@ on:
       - master
   workflow_dispatch:
 
+# Allow the workflow to create releases / push tags
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: windows-latest
