@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     } else {
       setState(() {
-        errorMessage = 'اسم المستخدم أو كلمة المرور غير صحيحة';
+        errorMessage = 'اسم المستخدم أو كلمة المرور غير صحيحه';
       });
     }
   }
