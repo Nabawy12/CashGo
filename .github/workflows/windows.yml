@@ -34,13 +34,14 @@ jobs:
       - name: Create zip file
         run: Compress-Archive -Path build/windows/x64/runner/Release/* -DestinationPath CashGo-windows.zip
 
-      # ========== CREATE RELEASE (pass token correctly) ==========
-      - name: Create Release (with PAT)
+      - name: Create Release
         id: create_release
         uses: actions/create-release@v1
+        env:
+          # <<==== هنا نمرر التوكن كـ env
+          # استبدل PAT_TOKEN بـ secrets.GITHUB_TOKEN إذا تفضل استخدام الـ GITHUB_TOKEN الافتراضي
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
         with:
-          # إذا ستستخدم GITHUB_TOKEN بدل PAT فغيّر السطر أدناه إلى ${{ secrets.GITHUB_TOKEN }}
-          token: ${{ secrets.PAT_TOKEN }}
           tag_name: v${{ github.run_number }}
           release_name: Release v${{ github.run_number }}
           draft: false
@@ -48,11 +49,10 @@ jobs:
 
       - name: Upload Windows build
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: CashGo-windows.zip
           asset_name: CashGo-windows.zip
           asset_content_type: application/zip
-        env:
-          # تأكد أن نفس التوكن متوفر كمتغير بيئـي لو احتاجت الخطوة ذلك
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
