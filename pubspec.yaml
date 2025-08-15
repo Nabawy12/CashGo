@@ -19,6 +19,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  assets:
-    - assets/images/
-    - assets/icons/
+  # Uncomment the assets lines below after adding actual files in these folders
+  # assets:
+  #   - assets/images/
+  #   - assets/icons/
